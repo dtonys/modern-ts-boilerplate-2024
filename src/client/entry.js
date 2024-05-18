@@ -26,4 +26,4 @@ console.log('client entry.js'); // eslint-disable-line no-console
 // fireAPIs();
 
 const root = createRoot(document.querySelector('#root'));
-root.render(<App />);  // eslint-disable-line
+root.render(<App />); // eslint-disable-line
