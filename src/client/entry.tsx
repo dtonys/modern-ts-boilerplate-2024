@@ -25,5 +25,6 @@ console.log('client entry.js'); // eslint-disable-line no-console
 
 // fireAPIs();
 
-const root = createRoot(document.querySelector('#root'));
+const rootDOM: HTMLElement = document.querySelector('#root')!;
+const root = createRoot(rootDOM);
 root.render(<App />); // eslint-disable-line

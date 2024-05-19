@@ -6,7 +6,7 @@ const ReactRefreshBabelPlugin = require('react-refresh/babel');
 module.exports = {
   mode: 'development',
   entry: {
-    bundle: path.resolve(__dirname, 'src/client/entry.js'),
+    bundle: path.resolve(__dirname, 'src/client/entry.ts'),
   },
   output: {
     path: path.resolve(__dirname, 'public'),
