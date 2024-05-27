@@ -35,15 +35,13 @@ const pathToComponent: StringMap = {
 };
 
 interface DynamicImport {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  default: React.ComponentType<any>;
+  default: React.ComponentType<unknown>;
 }
 
 function App() {
   const [state, setState] = useState<{
     currentPath: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    PageComponent: React.ComponentType<any> | null;
+    PageComponent: React.ComponentType<unknown> | null;
   }>({
     currentPath: window.location.pathname,
     PageComponent: null,
@@ -55,7 +53,7 @@ function App() {
       const componentPath = pathToComponent[window.location.pathname];
       console.log('onLocationChange');
       console.log(componentPath);
-      const component = (await import(`client/pages/${componentPath}.jsx`)) as DynamicImport;
+      const component = (await import(`client/pages/${componentPath}.tsx`)) as DynamicImport;
       setState((currentState) => ({
         ...currentState,
         currentPath: window.location.pathname,

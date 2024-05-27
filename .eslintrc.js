@@ -57,7 +57,6 @@ module.exports = {
     'no-prototype-builtins': [0],
     'array-callback-return': [0],
     'no-nested-ternary': [0],
-    'jsx-a11y/alt-text': [0],
     'one-var': [0],
     'no-underscore-dangle': [0],
     'prefer-destructuring': [0],

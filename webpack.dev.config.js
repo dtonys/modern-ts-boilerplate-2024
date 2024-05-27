@@ -6,7 +6,7 @@ const ReactRefreshBabelPlugin = require('react-refresh/babel');
 module.exports = {
   mode: 'development',
   entry: {
-    bundle: path.resolve(__dirname, 'src/client/entry.ts'),
+    bundle: path.resolve(__dirname, 'src/client/entry.tsx'),
   },
   output: {
     path: path.resolve(__dirname, 'public'),
@@ -75,6 +75,7 @@ module.exports = {
     new ReactRefreshWebpackPlugin(),
   ],
   resolve: {
+    extensions: ['.ts', '.js', '.tsx', '.jsx', '.json'],
     alias: {
       client: path.resolve(__dirname, 'src/client'),
     },

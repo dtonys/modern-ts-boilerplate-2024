@@ -1,1 +1,1 @@
-require('./src/server/entry.ts');
+import './src/server/entry';

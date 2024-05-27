@@ -3,8 +3,5 @@
   "ignore": [".git", "node_modules/**/node_modules", "src"],
   "verbose": true,
   "watch": ["build", "server.js", ".env", "nodemon.json"],
-  "env": {
-    "NODE_ENV": "development"
-  },
-  "ext": "js,json"
+  "ext": "js,ts,json"
 }

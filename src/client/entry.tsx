@@ -6,9 +6,9 @@ import '@fontsource/roboto/700.css';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
-import App from './components/App.jsx';
+import App from './components/App';
 
-import API from './models/api.js';
+import API from './models/api';
 import './main.scss';
 
 console.log(API); // eslint-disable-line no-console

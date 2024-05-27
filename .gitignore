@@ -13,3 +13,10 @@ node_modules/
 # Build output
 /public/*
 /build/*
+
+# Ignore zipped app
+*.zip
+
+# Ignore devops secrets
+eb-key-pair.pem
+*.pem

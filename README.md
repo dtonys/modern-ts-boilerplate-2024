@@ -25,39 +25,52 @@ In our `.eslintrc.js`, we'll let eslint know that it should use the most local t
   },
 ```
 
-## Run app in development mode
+eslint config uses best practices for Typescript and React.  Airbnb config is not included in this setup.
+Your IDE should be integrated with ESLint to catch errors while writing code.
+
+## Quickstart
+
+### Run app in development mode
 
 ```
 $ npm run dev           // typescript watch, webpack watch, start server
 $ npm run server        // start api server
-// open http://localhost:8080 in browser
 ```
+Open http://localhost:8080 in browser
 
-## Run app in production mode:
+### Run app in production mode:
 
 ```
 $ npm run start         // typescript build, webpack build, start server
-// open http://localhost:3000 in browser
+```
+Open http://localhost:3000 in browser
+
+### Build assets and deploy to a production environment
+
+```
+$ npm run build:zip   // build code, extract to zip file -> "src.zip"
 ```
 
-### Linting
+Manually upload `src.zip` to your AWS Elastic Beanstalk instance, or other service provider.
 
-```
-$ npm run lint          // run eslint and check all javascript for errors
-```
+## Server - File watching & hot reloading
 
-eslint config inherits from the strict `airbnb` config, and can be configured in `.eslintrc.js`.
-Your IDE should be integrated with ESLint to catch errors while writing code.
+Server side code is compiled with Typescript.  `tsconfig.json` specifies which files are compiled.
+`tsc -w` watches src code, compiles and writes compiled javascript to `build`.
 
-### File watching
+`nodemon` watches `build` directory, along with a few other top level files and restarts the server on change.
 
-nodemon is used to restart the server on code change. `nodemon.json` specifies which server directories and files will be watched to reload the server.
 
-### Hot reloading
+## Client - File watching & hot reloading
 
-`@pmmmwh/react-refresh-webpack-plugin` will hot reload react components on change. Changes outside the react tree (Example: code changes in the entry point where react has not mounted yet) will trigger a hard page reload.
+Webpack is used to compile and bundle all client side code.
 
-### Routing
+Client side code is not processed by `tsc`, `babel-loader` will compile the typescript to commonjs.
+
+`@pmmmwh/react-refresh-webpack-plugin` will hot reload react components on change.
+Changes outside the react tree (Example: code changes in the entry point where react has not mounted yet) will trigger a hard page reload.
+
+## Routing
 
 Single page app routing can be achieved without complex libraries or integrations.
 
@@ -68,3 +81,24 @@ This will push to `window.history` to update the url, and dispatch a popstate ev
 On popstate, the router component will dynamically import (lazy load) the component and re-render the view.
 
 See https://ncoughlin.com/posts/react-navigation-without-react-router/ for details.
+
+## dependencies vs devDependencies
+
+**NOTE: Keep all client side npm modules under devDependencies**
+
+Any of the follow npm modules belongs in devDependencies
+  - Client side modules (react, mui, fonts).  These will be bundled by webpack.  So we won't reference the code in node_modules.
+  - Development only packages (webpack, @types, ...)
+
+The zip script will exclude devDependencies, resulting in faster execution & smaller code bundle.
+
+Make sure to include only server side production dependencies in `dependencies` and put the rest in `devDependencies`.
+
+
+## Production logs
+
+Use the AWS cli to tail logs in realtime.
+
+```
+aws logs tail /aws/elasticbeanstalk/{environmentName}/var/log/web.stdout.log --follow
+```

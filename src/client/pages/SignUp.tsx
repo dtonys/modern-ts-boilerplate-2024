@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
-import onLinkClick from 'client/helpers/onLinkClick.js';
+import onLinkClick from 'client/helpers/onLinkClick';
 
 function SignUp() {
   function handleSubmit() {

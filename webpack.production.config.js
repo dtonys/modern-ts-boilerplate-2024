@@ -6,7 +6,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 module.exports = {
   mode: 'production',
   entry: {
-    bundle: path.resolve(__dirname, 'src/client/entry.ts'),
+    bundle: path.resolve(__dirname, 'src/client/entry.tsx'),
   },
   devtool: 'source-map',
   output: {
@@ -61,6 +61,7 @@ module.exports = {
     }),
   ],
   resolve: {
+    extensions: ['.ts', '.js', '.tsx', '.jsx', '.json'],
     alias: {
       client: path.resolve(__dirname, 'src/client'),
     },

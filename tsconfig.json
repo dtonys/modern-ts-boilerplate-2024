@@ -1,5 +1,5 @@
 {
-  "include": ["src/**/*"],
+  "include": ["server.ts", "src/**/*"],
   "exclude": ["node_modules", "public", "src/client/*"],
   "compilerOptions": {
     /* Base Options: */
