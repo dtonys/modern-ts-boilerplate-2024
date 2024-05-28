@@ -3,15 +3,14 @@ import os from 'node:os';
 import path from 'node:path';
 import express, { Request, Response, Express } from 'express';
 import bodyParser from 'body-parser';
-import api from './api';
+import routes from './routes';
 
 function startExpressServer() {
   const app: Express = express();
   app.use(express.static(path.resolve(__dirname, '../../../public')));
   app.use(bodyParser.json());
 
-  // JSON API
-  api(app);
+  routes(app);
 
   // Serve html
   app.get('*', (req: Request, res: Response) => {
@@ -45,7 +44,6 @@ function bootStrap() {
     );
     return;
   }
-  console.log(`Worker ${process.pid} started`);
   startExpressServer();
   return;
 }
