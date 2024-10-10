@@ -1,6 +1,6 @@
 {
   "include": ["server.ts", "src/**/*"],
-  "exclude": ["node_modules", "public", "src/client/*"],
+  "exclude": ["node_modules", "public", "src/client/*", "eslintrc.js"],
   "compilerOptions": {
     /* Base Options: */
     "esModuleInterop": true,
@@ -18,8 +18,6 @@
     /* If transpiling with TypeScript: */
     "module": "nodenext",
     "outDir": "build",
-    "sourceMap": true,
-    /* If your code runs in the DOM: */
-    "lib": ["es2022", "dom", "dom.iterable"]
+    "sourceMap": true
   }
 }
