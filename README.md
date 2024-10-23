@@ -51,7 +51,11 @@ Open http://localhost:3000 in browser
 $ npm run build:zip   // build code, extract to zip file -> "src.zip"
 ```
 
+This will build typescript seRver to `/build` folder, and assets to `/public`.
+
 Manually upload `src.zip` to your AWS Elastic Beanstalk instance, or other service provider.
+
+Configure it to run `npm run start` which will start the server in production mode, after the source code has been unzipped.
 
 ## Server - File watching & hot reloading
 

@@ -4,7 +4,7 @@ interface HandlerMap {
   [key: string]: RequestHandler;
 }
 
-const authRoutes = (handlers: HandlerMap) => {
+const getRoutes = (handlers: HandlerMap) => {
   const router = Router();
   router.post('/api/signup', handlers.signup!);
   router.post('/api/login', handlers.login!);
@@ -19,7 +19,7 @@ const authRoutes = (handlers: HandlerMap) => {
   return router;
 };
 
-const authHandlers = (): HandlerMap => {
+const getHandlers = (): HandlerMap => {
   return {
     signup: (req: Request, res: Response) => {
       res.send({ name: 'signup' });
@@ -55,8 +55,8 @@ const authHandlers = (): HandlerMap => {
 };
 
 const authController = (): Router => {
-  const handlers = authHandlers();
-  const router = authRoutes(handlers);
+  const handlers = getHandlers();
+  const router = getRoutes(handlers);
   return router;
 };
 
