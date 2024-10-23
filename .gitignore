@@ -15,7 +15,7 @@ node_modules/
 /build/*
 
 # Ignore large data files
-/data/*
+/src/data/*
 
 # Ignore zipped app
 *.zip
