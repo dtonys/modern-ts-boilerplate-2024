@@ -1,63 +1,61 @@
-import { Request, Response, Router, RequestHandler } from 'express';
+import { Request, Response, Router } from 'express';
+import { handleAsyncError } from '../helpers';
 
-interface HandlerMap {
-  [key: string]: RequestHandler;
-}
-
-const getRoutes = (handlers: HandlerMap) => {
-  const router = Router();
-  router.post('/api/signup', handlers.signup!);
-  router.post('/api/login', handlers.login!);
-  router.get('/api/logout', handlers.logout!);
-  router.get('/api/session', handlers.sessionInfo!);
-  router.get('/api/verify-email', handlers.verifyEmail!);
-  router.post('/api/lost-password', handlers.lostPassword!);
-  router.post('/api/reset-password', handlers.resetPassword!);
-  router.get('/api/email/:slug/available', handlers.emailAvailable!);
-  router.get('/api/username/:slug/available', handlers.usernameAvailable!);
-  router.post('/api/logonas', handlers.logonas!);
-  return router;
+const AuthController = {
+  getRoutes() {
+    const router = Router();
+    router.post('/api/signup', handleAsyncError(this.signup));
+    router.post('/api/login', handleAsyncError(this.login));
+    router.get('/api/logout', handleAsyncError(this.logout));
+    router.get('/api/session', handleAsyncError(this.sessionInfo));
+    router.get('/api/verify-email', handleAsyncError(this.verifyEmail));
+    router.post('/api/lost-password', handleAsyncError(this.lostPassword));
+    router.post('/api/reset-password', handleAsyncError(this.resetPassword));
+    router.get('/api/email/:slug/available', handleAsyncError(this.emailAvailable));
+    router.get('/api/username/:slug/available', handleAsyncError(this.usernameAvailable));
+    router.post('/api/logonas', handleAsyncError(this.logonas));
+    return router;
+  },
+  signup: async (req: Request, res: Response) => {
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    res.send({ name: 'signup' });
+  },
+  login: async (req: Request, res: Response) => {
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    res.send({ name: 'login' });
+  },
+  logout: async (req: Request, res: Response) => {
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    res.send({ name: 'logout' });
+  },
+  sessionInfo: async (req: Request, res: Response) => {
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    res.send({ name: 'sessionInfo' });
+  },
+  verifyEmail: async (req: Request, res: Response) => {
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    res.send({ name: 'verifyEmail' });
+  },
+  lostPassword: async (req: Request, res: Response) => {
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    res.send({ name: 'lostPassword' });
+  },
+  resetPassword: async (req: Request, res: Response) => {
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    res.send({ name: 'resetPassword' });
+  },
+  emailAvailable: async (req: Request, res: Response) => {
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    res.send({ name: 'emailAvailable' });
+  },
+  usernameAvailable: async (req: Request, res: Response) => {
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    res.send({ name: 'usernameAvailable' });
+  },
+  logonas: async (req: Request, res: Response) => {
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    res.send({ name: 'logonas' });
+  },
 };
 
-const getHandlers = (): HandlerMap => {
-  return {
-    signup: (req: Request, res: Response) => {
-      res.send({ name: 'signup' });
-    },
-    login: (req: Request, res: Response) => {
-      res.send({ name: 'login' });
-    },
-    logout: (req: Request, res: Response) => {
-      res.send({ name: 'logout' });
-    },
-    sessionInfo: (req: Request, res: Response) => {
-      res.send({ name: 'sessionInfo' });
-    },
-    verifyEmail: (req: Request, res: Response) => {
-      res.send({ name: 'verifyEmail' });
-    },
-    lostPassword: (req: Request, res: Response) => {
-      res.send({ name: 'lostPassword' });
-    },
-    resetPassword: (req: Request, res: Response) => {
-      res.send({ name: 'resetPassword' });
-    },
-    emailAvailable: (req: Request, res: Response) => {
-      res.send({ name: 'emailAvailable' });
-    },
-    usernameAvailable: (req: Request, res: Response) => {
-      res.send({ name: 'usernameAvailable' });
-    },
-    logonas: (req: Request, res: Response) => {
-      res.send({ name: 'logonas' });
-    },
-  };
-};
-
-const authController = (): Router => {
-  const handlers = getHandlers();
-  const router = getRoutes(handlers);
-  return router;
-};
-
-export default authController;
+export default AuthController;

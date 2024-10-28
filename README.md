@@ -98,6 +98,14 @@ The zip script will exclude devDependencies, resulting in faster execution & sma
 
 Make sure to include only server side production dependencies in `dependencies` and put the rest in `devDependencies`.
 
+## Databases and .env files
+
+You must create a `.env` and `.env.local`.
+`.env` will be used in a production environment.
+`.env.local` will be used for local development.
+The `.env` will be packaged and shipped to the server via the zip command.
+
+`.env.sample` is provided for you to see what values are required.
 
 ## Production logs
 

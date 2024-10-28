@@ -20,6 +20,17 @@ function LogIn() {
     console.log('handleSubmit');
   }
 
+  async function fireAPI(event: React.MouseEvent<HTMLElement>) {
+    const endpoint = (event.target as Element).getAttribute('data-endpoint');
+    const startTime = Date.now();
+    const response: Response = await fetch(endpoint!);
+    const json = (await response.json()) as unknown;
+    console.log(json);
+    console.log('Duration in seconds');
+    const seconds = ((Date.now() - startTime) / 1000).toFixed(2);
+    console.log(seconds);
+  }
+
   return (
     <Box
       sx={{
@@ -41,7 +52,7 @@ function LogIn() {
           required
           fullWidth
           id="email"
-          label="Email Address"
+          label="Email Address!!!!"
           name="email"
           autoComplete="email"
           autoFocus
@@ -71,10 +82,25 @@ function LogIn() {
           </Grid>
           <Grid item>
             <Link href="/signup" variant="body2" onClick={onLinkClick}>
-              Don't have an account? Sign Up
+              Don't have an account? Sign Up!!!!
             </Link>
           </Grid>
         </Grid>
+        <button type="button" onClick={fireAPI} data-endpoint="/api/dynamo/users">
+          DynamoDB
+        </button>
+        <button type="button" onClick={fireAPI} data-endpoint="/api/dynamo/users?parallel=1">
+          DynamoDB - Parallel
+        </button>
+        <button type="button" onClick={fireAPI} data-endpoint="/api/sql/users">
+          MySQL
+        </button>
+        <button type="button" onClick={fireAPI} data-endpoint="/api/sql/users?aurora=1">
+          Aurora
+        </button>
+        <button type="button" onClick={fireAPI} data-endpoint="/api/redis/users">
+          Redis
+        </button>
       </Box>
     </Box>
   );

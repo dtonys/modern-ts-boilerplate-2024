@@ -3,20 +3,29 @@ import os from 'node:os';
 import path from 'node:path';
 import express, { Request, Response, Express } from 'express';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import compression from 'compression';
 import routes from './routes';
+import { jsonErrorHandler } from './helpers';
 
-function startExpressServer() {
+async function startExpressServer() {
   const app: Express = express();
+  // app.use(compression());
   app.use(express.static(path.resolve(__dirname, '../../../public')));
+  app.use(cookieParser());
   app.use(bodyParser.json());
 
-  routes(app);
+  // API routes
+  await routes(app);
 
   // Serve html
   app.get('*', (req: Request, res: Response) => {
     console.log(`Worker ${process.pid} serve index.html`);
     res.sendFile(path.resolve(__dirname, '../../../public/index.html'));
   });
+
+  // Override default express error handler
+  app.use(jsonErrorHandler);
 
   const port = process.env.PORT ?? 3000;
   app.listen(port, () => {
@@ -30,7 +39,7 @@ function bootStrap() {
   console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
   console.log(`PORT: ${process.env.PORT}`);
   if (process.env.NODE_ENV !== 'production') {
-    startExpressServer();
+    void startExpressServer();
     return;
   }
   if (cluster.isPrimary) {
@@ -44,7 +53,7 @@ function bootStrap() {
     );
     return;
   }
-  startExpressServer();
+  void startExpressServer();
   return;
 }
 
