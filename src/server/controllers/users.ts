@@ -161,16 +161,11 @@ class StaticUserController {
   static getUserListRedis = async (req: Request, res: Response) => {
     const startTime = Date.now();
     const usersMap = await this.RedisClient.hGetAll('users');
-    const users = [];
-    for (const key in usersMap) {
-      users.push(JSON.parse(usersMap[key]!));
-    }
-    users.sort((a, b) => (a?.UserID < b?.UserID ? -1 : 1));
     const endTime = Date.now();
     console.log('Redis');
     console.log('Duration in seconds');
     console.log(((endTime - startTime) / 1000).toFixed(2));
-    res.json(users);
+    res.json(usersMap);
     // res.json(map);
   };
 
